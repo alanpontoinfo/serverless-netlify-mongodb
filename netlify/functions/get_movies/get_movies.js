@@ -1,9 +1,12 @@
 // netlify/functions/get_movies.js
 const { MongoClient } = require('mongodb');
 require('dotenv').config();
+/*const mongoClient = new MongoClient(process.env.MONGODB_URI);
+
+const clientPromise = mongoClient.connect();*/
 
 const uri = process.env.MONGODB_URI;
-const dbName = process.env.MONGODB_DB;
+const dbName = process.env.MONGODB_DATABASE;
 const collectionName = process.env.MONGODB_COLLECTION || 'movies';
 
 
