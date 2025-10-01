@@ -1,4 +1,79 @@
 <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<title>MongoDB com Netlify Functions — Buscar por Title</title>
+<style>
+body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; padding: 24px; }
+input, button { padding: 8px; font-size: 14px; }
+#info { margin-top: 12px; color: #444; }
+ul { margin-top: 12px; padding-left: 20px; }
+li { margin-bottom: 6px; }
+</style>
+</head>
+<body>
+<h1>MongoDB com Netlify Functions</h1>
+
+
+<div>
+<label for="q">Buscar por título:</label>
+<input id="q" type="text" placeholder="Digite um título (ex: Matrix)" />
+<button id="btnSearch">Buscar (GET)</button>
+<button id="btnAll">Buscar todos</button>
+</div>
+
+
+<div id="info"></div>
+<ul id="movies"></ul>
+
+
+<script>
+const moviesList = document.getElementById('movies');
+const info = document.getElementById('info');
+const input = document.getElementById('q');
+const btnSearch = document.getElementById('btnSearch');
+const btnAll = document.getElementById('btnAll');
+
+
+function render(results) {
+moviesList.innerHTML = '';
+if (!results || results.length === 0) {
+info.textContent = 'Nenhum resultado encontrado.';
+return;
+}
+info.textContent = `${results.length} resultado(s)`;
+results.forEach(r => {
+const li = document.createElement('li');
+li.innerText = r.title ?? JSON.stringify(r);
+moviesList.appendChild(li);
+});
+}
+
+
+async function fetchByTitle(title) {
+try {
+info.textContent = 'Buscando...';
+moviesList.innerHTML = '';
+
+<
+let url;
+if (!title) {
+url = '/.netlify/functions/get_movies';
+} else {
+const q = encodeURIComponent(title);
+url = `/.netlify/functions/findByTitle?title=${q}&limit=50`;
+}
+</html>
+
+
+
+
+
+
+
+
+<!-- 
+<!DOCTYPE html>
 <html>
     <head></head>
     <body>
@@ -16,3 +91,4 @@
         </script>
     </body>
 </html>
+-->
